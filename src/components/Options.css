@@ -1,0 +1,9 @@
+.images {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.image {
+  height: 300px;
+  width: auto;
+}
