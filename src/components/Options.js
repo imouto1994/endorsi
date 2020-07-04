@@ -26,6 +26,7 @@ export default function Options() {
 
   function onImageError(imageIndex) {
     const filteredImages = images.filter((_, index) => index !== imageIndex);
+    chrome.storage.local.set({ images: JSON.stringify(filteredImages) });
     setImages(filteredImages);
   }
 
