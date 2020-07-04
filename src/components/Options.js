@@ -24,17 +24,23 @@ export default function Options() {
     setImages(newImages);
   }
 
+  function onImageError(imageIndex) {
+    const filteredImages = images.filter((_, index) => index !== imageIndex);
+    setImages(filteredImages);
+  }
+
   return (
     <div>
       <input type="file" onChange={onImagesAdded} multiple />
-      <h1>IMAGES</h1>
+      <h1>{`IMAGES (${images.length})`}</h1>
       <div className={styles.images}>
-        {images.map((image) => {
+        {images.map((image, index) => {
           return (
             <img
               key={image}
               className={styles.image}
               src={chrome.runtime.getURL(`images/${image}`)}
+              onError={() => onImageError(index)}
             />
           );
         })}
