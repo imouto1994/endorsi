@@ -47,16 +47,23 @@ body {
   width: calc(100% / 3);
 }
 
-.imageContainer:not(:first-child) {
-  border-left: 1px solid black;
-}
-
 .imageWrapper {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+.imageWrapper:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 8px solid black;
+  mix-blend-mode: overlay;
 }
 
 .image {
