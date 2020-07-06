@@ -5,7 +5,9 @@ import styles from "./NewTab.css";
 
 export default function Options() {
   const [images, setImages] = useState([]);
+  const [selectedIndices, setSelectedIndices] = useState([]);
 
+  // Read from extenstion storage for list of images
   useEffect(() => {
     chrome.storage.local.get("images", (result) => {
       if (result.images != null) {
@@ -14,18 +16,27 @@ export default function Options() {
     });
   }, []);
 
-  // Select 3 images
-  const selectedIndices = [];
-  const limit = Math.min(3, images.length);
-  while (selectedIndices.length < limit) {
-    const randomIndex = Math.floor(Math.random() * images.length);
-    if (!selectedIndices.includes(randomIndex)) {
-      selectedIndices.push(randomIndex);
+  // Select 3 images every 7 seconds
+  useEffect(() => {
+    function reloadSelectedIndices() {
+      const newSelectedIndices = [];
+      const limit = Math.min(3, images.length);
+      while (newSelectedIndices.length < limit) {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        if (!newSelectedIndices.includes(randomIndex)) {
+          newSelectedIndices.push(randomIndex);
+        }
+      }
+      setSelectedIndices(newSelectedIndices);
     }
-  }
-  const selectedImages = images.filter((_, index) =>
-    selectedIndices.includes(index),
-  );
+
+    reloadSelectedIndices();
+    const intervalId = setInterval(reloadSelectedIndices, 7000);
+
+    return () => clearInterval(intervalId);
+  }, [images]);
+
+  const selectedImages = selectedIndices.map((index) => images[index]);
 
   return (
     <div className={styles.images}>
