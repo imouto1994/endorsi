@@ -11,8 +11,7 @@ const cssnano = require("cssnano");
 module.exports = {
   devtool: undefined,
   entry: {
-    main: path.resolve(__dirname, "./src/index.js"),
-    options: path.resolve(__dirname, "./src/options.js"),
+    options: path.resolve(__dirname, "./src/options/index.js"),
   },
   mode: "production",
   module: {
@@ -83,12 +82,6 @@ module.exports = {
     path: path.resolve(__dirname, "./build"),
     publicPath: "/",
   },
-  output: {
-    chunkFilename: "[name]-[contenthash:10].js",
-    filename: "[name]-[contenthash:10].js",
-    path: path.resolve(__dirname, "./build/"),
-    publicPath: "/",
-  },
   plugins: [
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
@@ -115,7 +108,7 @@ module.exports = {
       filename: "[name]-[contenthash:10].min.css",
     }),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("development"),
+      "process.env.NODE_ENV": JSON.stringify("production"),
     }),
     new ManifestPlugin({
       fileName: "build-manifest.json",

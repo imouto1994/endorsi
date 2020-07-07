@@ -1,16 +1,6 @@
 html {
-  /* Prevent padding and border from affecting element width */
   box-sizing: border-box;
   height: 100%;
-  line-height: 1.5;
-
-  /* Breaks words to prevent overflow in all browsers */
-  word-break: break-all;
-
-  /* Remove the grey highlight on links in iOS */
-  -webkit-tap-highlight-color: transparent;
-
-  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -22,7 +12,7 @@ body {
   background-color: black;
 }
 
-:global(#root) {
+#root {
   display: flex;
   flex: 1;
   flex-flow: column nowrap;
